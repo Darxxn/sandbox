@@ -47,13 +47,21 @@ class RegisterScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   minimumSize: Size(double.infinity, 50),
                 ),
-                child: Text("Register", style: TextStyle(color: Colors.white)),
+                child: Text("Register", style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13)),
               ),
               SizedBox(height: 16),
               GestureDetector(
-                onTap: () {},
-                child: Text("Already have an account? Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              ),
+  onTap: () {
+    Navigator.pushReplacementNamed(context, '/'); // Navigate to Login Screen
+  },
+  child: Text(
+    "Already have an account? Login",
+    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+  ),
+),
+
               SizedBox(height: 8),
               GestureDetector(
                 onTap: () {},

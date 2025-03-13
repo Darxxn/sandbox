@@ -14,20 +14,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  void _login() {
-    // Implement your login logic here
+void _login() {
+  setState(() {
+    _isLoading = true;
+  });
+
+  // Simulate a delay for demonstration
+  Future.delayed(const Duration(seconds: 2), () {
     setState(() {
-      _isLoading = true;
+      _isLoading = false;
     });
 
-    // Simulate a delay for demonstration
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-      // Navigate or show an error based on login result
-    });
-  }
+    // Navigate to Chat Screen after successful login
+    Navigator.pushReplacementNamed(context, '/chat');
+  });
+}
+
 
   @override
   void dispose() {
@@ -132,17 +134,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // Register Link
                 GestureDetector(
-                  onTap: () {
-                    // Navigate to RegisterScreen or do something else
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text(
-                    "Don't have an account? Register",
-                    style: TextStyle(
-                      color: Color(0xFFCFE5FE),
-                    ),
-                  ),
-                ),
+  onTap: () {
+    Navigator.pushNamed(context, '/register'); // Navigate to Register Screen
+  },
+  child: const Text(
+    "Don't have an account? Register",
+    style: TextStyle(
+      color: Color(0xFFCFE5FE),
+    ),
+  ),
+),
+
                 const SizedBox(height: 8),
 
                 // Terms & Conditions
