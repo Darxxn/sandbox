@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
               CustomTextField(icon: Icons.lock, hintText: "Confirm Password", controller: viewModel.confirmPasswordController, obscureText: true),
               SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () => viewModel.register(),
+                onPressed: () => viewModel.register(context), // Pass context here
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
