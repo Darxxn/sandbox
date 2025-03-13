@@ -15,20 +15,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  void _login() {
-    // Implement your login logic here
+void _login() {
+  setState(() {
+    _isLoading = true;
+  });
+
+  // Simulate a delay for demonstration
+  Future.delayed(const Duration(seconds: 2), () {
     setState(() {
-      _isLoading = true;
+      _isLoading = false;
     });
 
-    // Simulate a delay for demonstration
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-      // Navigate or show an error based on login result
-    });
-  }
+    // Navigate to Chat Screen after successful login
+    Navigator.pushReplacementNamed(context, '/chat');
+  });
+}
+
 
   @override
   void dispose() {
@@ -63,10 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 // Logo at the top
                 Image.asset(
-                  'assets/images/logo.png',
-                  height: 100,
+                  'assets/images/Q.png',
+                  height: 170,
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 80),
 
                 // Organization Code
                 _buildTextField(
@@ -138,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: const Text(
                           "Login",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
                 const SizedBox(height: 20),
