@@ -88,14 +88,25 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
+    
+    
   Widget _buildBottomNavBar() {
-    return BottomNavigationBar(
+  return Container(
+    color: Color(0xFF1C202A), // Match navbar background
+    padding: const EdgeInsets.only(top: 15.0), // Increase navbar height
+    child: BottomNavigationBar(
       currentIndex: 1, // Chat is selected
+      backgroundColor: Color(0xFF1C202A), // Dark navbar background
+      selectedItemColor: Color(0xFF5FB4FF), // Highlight color when selected
+      unselectedItemColor: Colors.white, // Default color for unselected items
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(icon: Icon(Icons.chat), label: "Chat"),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
       ],
-    );
-  }
+    ),
+  );
+}
+
+
 }
