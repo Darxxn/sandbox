@@ -31,10 +31,10 @@ class RegisterScreen extends StatelessWidget {
               children: [
                 // Logo at the top
                 Image.asset(
-                  'assets/images/logo.png',
-                  height: 100, // Same size as login
+                  'assets/images/Q.png',
+                  height: 170, // Same size as login
                 ),
-                const SizedBox(height: 80),
+                const SizedBox(height: 50),
 
                 // Organization Code
                 _buildTextField(
@@ -81,7 +81,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   obscureText: true,
                 ),
-                const SizedBox(height: 70),
+                const SizedBox(height: 40),
 
                 // Register Button
                 ElevatedButton(

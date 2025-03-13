@@ -64,10 +64,10 @@ void _login() {
               children: [
                 // Logo at the top
                 Image.asset(
-                  'assets/images/logo.png',
-                  height: 100, // Adjust as needed
+                  'assets/images/Q.png',
+                  height: 170, // Adjust as needed
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 80),
 
                 // Organization Code
                 _buildTextField(
