@@ -1,0 +1,13 @@
+services:
+  roleplai_local_postgres:
+    image: postgres:16.8
+    restart: always
+    ports:
+      - 25432:5432
+    environment:
+      POSTGRES_USER: roleplai
+      POSTGRES_PASSWORD: roleplai
+      POSTGRES_DB: postgres
+    container_name: roleplai_local_postgres
+    volumes:
+      - ./database:/tmp
