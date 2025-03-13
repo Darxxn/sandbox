@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'screens/login_screen.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -9,8 +12,7 @@ void main() async {
     url: 'https://tmeriosndjiwpbdjljcp.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtZXJpb3NuZGppd3BiZGpsamNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE3NDQ0ODUsImV4cCI6MjA1NzMyMDQ4NX0.1jOlCxEna20DcmLzibrgp9FuGSTp8snKu5afujJaW1A',
   );
-
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegisterScreen(),
+        // '/register': (context) => const RegisterScreen(),
       },
     );
   }
