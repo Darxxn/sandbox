@@ -41,7 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Remove default AppBar and use a full-screen gradient background
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -51,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
             end: FractionalOffset(0.86, 0.77),
             colors: [
               Colors.white,
-              Color.fromRGBO(94, 181, 255, 1), // Darker blue
+              Color.fromRGBO(94, 181, 255, 1),
             ],
             stops: [0.28, 0.87],
           ),
@@ -65,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Logo at the top
                 Image.asset(
                   'assets/images/logo.png',
-                  height: 100, // Adjust as needed
+                  height: 100,
                 ),
                 const SizedBox(height: 100),
 
