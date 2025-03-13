@@ -127,23 +127,23 @@ void _login() {
                         ),
                         child: const Text(
                           "Login",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
                 const SizedBox(height: 20),
 
                 // Register Link
                 GestureDetector(
-  onTap: () {
-    Navigator.pushNamed(context, '/register'); // Navigate to Register Screen
-  },
-  child: const Text(
-    "Don't have an account? Register",
-    style: TextStyle(
-      color: Color(0xFFCFE5FE),
-    ),
-  ),
-),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/register'); // Navigate to Register Screen
+                  },
+                  child: const Text(
+                    "Don't have an account? Register",
+                    style: TextStyle(
+                      color: Color(0xFFCFE5FE),
+                    ),
+                  ),
+                ),
 
                 const SizedBox(height: 8),
 
