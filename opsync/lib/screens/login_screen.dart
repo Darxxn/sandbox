@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 16,
                     ),
                   ),
-                  // obscureText: true,R
+                  obscureText: true,
                 ),
                 const SizedBox(height: 90),
 
@@ -145,33 +145,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 20),
 
                 // Register Link
-                // GestureDetector(
-                //   onTap: () {
-                //     // Navigate to RegisterScreen or do something else
-                //     Navigator.pushNamed(context, '/register');
-                //   },
-                //   child: const Text(
-                //     "Don't have an account? Register",
-                //     style: TextStyle(
-                //       color: Color(0xFFCFE5FE),
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 8),
-
                 RichText(
                   text: TextSpan(
                     text: "Don't have an account? ",
                     style: const TextStyle(
                       color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
-                      fontSize: 13, // Adjust as needed
+                      fontSize: 13,
                     ),
                     children: [
                       TextSpan(
                         text: "Register",
                         style: const TextStyle(
                           color: Colors.white, // White for the clickable link
-                          fontSize: 13, // Should match the parent's font size
+                          fontSize: 13,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {

@@ -1,8 +1,8 @@
-// lib/screens/register_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/register_vm.dart';
 import '../widgets/custom_text_field.dart';
+import 'package:flutter/gestures.dart';
 
 class RegisterScreen extends StatelessWidget {
   @override
@@ -50,15 +50,41 @@ class RegisterScreen extends StatelessWidget {
                 child: Text("Register", style: TextStyle(color: Colors.white)),
               ),
               SizedBox(height: 16),
-              GestureDetector(
-                onTap: () {},
-                child: Text("Already have an account? Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              ),
+              RichText(
+                  text: TextSpan(
+                    text: "Already have an account? ",
+                    style: const TextStyle(
+                      color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
+                      fontSize: 13,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "Login",
+                        style: const TextStyle(
+                          color: Colors.white, // White for the clickable link
+                          fontSize: 13,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, '/login');
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+
               SizedBox(height: 8),
               GestureDetector(
-                onTap: () {},
-                child: Text("Terms & Conditions", style: TextStyle(color: Colors.white70, fontSize: 12)),
-              ),
+                  onTap: () {
+                  },
+                  child: const Text(
+                    "Terms & Conditions",
+                    style: TextStyle(
+                      color: Color(0xFFCFE5FE),
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
