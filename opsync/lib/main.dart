@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'screens/login_screen.dart';
-
+import 'package:provider/provider.dart';
+import 'screens/register_screen.dart';
+import 'viewmodels/register_vm.dart';
+import 'viewmodels/chat_vm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +22,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Figma Mockup Demo',
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        // '/register': (context) => const RegisterScreen(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (context) => ChatViewModel()),
+      ],
+      child: MaterialApp(
+        title: 'Figma Mockup Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.blue),
+        initialRoute: '/login',
+        routes: {
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => RegisterScreen(),
+        },
+      ),
     );
   }
 }
