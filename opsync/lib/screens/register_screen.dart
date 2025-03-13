@@ -105,14 +105,26 @@ class RegisterScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(context, '/'); // Navigate to Login Screen
                   },
-                  child: const Text(
-                    "Already have an account? Login",
-                    style: TextStyle(
-                      color: Color(0xFFCFE5FE),
+                  child:  RichText(
+                    text: TextSpan(
+                      text: "Already have an account? ", // Default size
+                      style: TextStyle(
+                        color: Color(0xFFCFE5FE),
+                        fontSize: 16, // Keep default font size
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "Login",
+                          style: TextStyle(
+                            fontSize: 16, // Smaller font size for "Register"
+                            fontWeight: FontWeight.bold, // Optional: Make it stand out
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+
 
                 // Terms & Conditions
                 GestureDetector(

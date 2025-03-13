@@ -135,15 +135,28 @@ void _login() {
                 // Register Link
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/register'); // Navigate to Register Screen
+                    Navigator.pushReplacementNamed(context, '/register'); // Navigate to Login Screen
                   },
-                  child: const Text(
-                    "Don't have an account? Register",
-                    style: TextStyle(
-                      color: Color(0xFFCFE5FE),
+                  child: RichText(
+                    text: TextSpan(
+                      text: "Don't have an account? ", // Default size
+                      style: TextStyle(
+                        color: Color(0xFFCFE5FE),
+                        fontSize: 16, // Keep default font size
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "Register",
+                          style: TextStyle(
+                            fontSize: 16, // Smaller font size for "Register"
+                            fontWeight: FontWeight.bold, // Optional: Make it stand out
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
+
 
                 const SizedBox(height: 8),
 
