@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/gestures.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -46,12 +47,13 @@ class _LoginScreenState extends State<LoginScreen> {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: FractionalOffset(0.08, -0.9),
+            end: FractionalOffset(0.86, 0.77),
             colors: [
-              Color(0xFF6BB9F0), // Lighter blue
-              Color(0xFF4886E2), // Darker blue
+              Colors.white,
+              Color.fromRGBO(94, 181, 255, 1), // Darker blue
             ],
+            stops: [0.28, 0.87],
           ),
         ),
         child: SafeArea(
@@ -72,9 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _orgCodeController,
                   hintText: "Organization Code",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.only(
+                      left: 20.0,
+                      right: 10.0,
+                    ),
                     child: SvgPicture.asset(
                       'assets/icons/org_code.svg',
+                      width: 16,
+                      height: 13,
                     ),
                   ),
                 ),
@@ -91,6 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: SvgPicture.asset(
                       'assets/icons/email.svg',
+                      width: 16,
+                      height: 12,
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -102,12 +111,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   hintText: "Password",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.only(
+                      left: 20.0,
+                      right: 10.0,
+                    ),
                     child: SvgPicture.asset(
                       'assets/icons/password_lock.svg',
+                      width: 12,
+                      height: 16,
                     ),
                   ),
-                  // obscureText: true,
+                  // obscureText: true,R
                 ),
                 const SizedBox(height: 90),
 
@@ -131,29 +145,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 20),
 
                 // Register Link
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to RegisterScreen or do something else
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text(
-                    "Don't have an account? Register",
-                    style: TextStyle(
-                      color: Color(0xFFCFE5FE),
+                // GestureDetector(
+                //   onTap: () {
+                //     // Navigate to RegisterScreen or do something else
+                //     Navigator.pushNamed(context, '/register');
+                //   },
+                //   child: const Text(
+                //     "Don't have an account? Register",
+                //     style: TextStyle(
+                //       color: Color(0xFFCFE5FE),
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+
+                RichText(
+                  text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: const TextStyle(
+                      color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
+                      fontSize: 13, // Adjust as needed
                     ),
+                    children: [
+                      TextSpan(
+                        text: "Register",
+                        style: const TextStyle(
+                          color: Colors.white, // White for the clickable link
+                          fontSize: 13, // Should match the parent's font size
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, '/register');
+                          },
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 8),
 
                 // Terms & Conditions
                 GestureDetector(
                   onTap: () {
-                    // Show terms & conditions
                   },
                   child: const Text(
                     "Terms & Conditions",
                     style: TextStyle(
                       color: Color(0xFFCFE5FE),
+                      fontSize: 13,
                     ),
                   ),
                 ),
