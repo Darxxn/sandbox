@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'screens/login_screen.dart';
+import 'package:provider/provider.dart';
 import 'screens/register_screen.dart';
 import 'screens/chat_screen.dart';
 import 'viewmodels/register_vm.dart';
 import 'viewmodels/chat_vm.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

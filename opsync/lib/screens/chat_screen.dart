@@ -17,7 +17,7 @@ class ChatScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  "I'm Q, your AI helper!\nLet me know how I can help.",
+                  "I'm Q, your AI assistant!\nLet me know how I can help.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,

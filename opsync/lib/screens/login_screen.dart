@@ -66,7 +66,7 @@ void _login() {
                 // Logo at the top
                 Image.asset(
                   'assets/images/Q.png',
-                  height: 170,
+                  height: 170, // Adjust as needed
                 ),
                 const SizedBox(height: 80),
 
