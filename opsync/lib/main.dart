@@ -6,6 +6,8 @@ import 'screens/register_screen.dart';
 import 'screens/chat_screen.dart';
 import 'viewmodels/register_vm.dart';
 import 'viewmodels/chat_vm.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,14 @@ void main() async {
     url: 'https://tmeriosndjiwpbdjljcp.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtZXJpb3NuZGppd3BiZGpsamNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE3NDQ0ODUsImV4cCI6MjA1NzMyMDQ4NX0.1jOlCxEna20DcmLzibrgp9FuGSTp8snKu5afujJaW1A',
   );
+  
+  try {
+    await dotenv.load(fileName: ".env"); // Ensure it looks in the root directory
+    print("✅ .env file loaded successfully!");
+  } catch (e) {
+    print("❌ Error loading .env file: $e");
+  }
+
 
   runApp(MyApp());
 }

@@ -31,9 +31,10 @@ class ChatInputField extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.mic, size: 28),
-            onPressed: () => viewModel.startVoiceInput(),
-          ),
+  icon: Icon(Icons.send, size: 28),
+  onPressed: () => viewModel.sendMessage(),
+),
+
         ],
       ),
     );

@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
-import '../services/gpt_services.dart';
+import '../services/assistant_service.dart';
 
 class ChatViewModel extends ChangeNotifier {
   final TextEditingController messageController = TextEditingController();
-  final List<String> messages = [];
+  final List<String> messages = []; // Stores chat messages
 
-  void sendMessage(String message) async {
+  void sendMessage() async {
+    String message = messageController.text.trim();
     if (message.isEmpty) return;
 
-    messages.add("You: $message");
-    notifyListeners();
+    _addUserMessage(message);
 
-    // Send message to GPT API
-    String response = await GPTService.sendMessage(message);
-    messages.add("Q: $response");
+    messageController.clear(); // Clear input field
+
+    // Get GPT response from AssistantService
+    String response = await AssistantService.sendMessage(message);
+
+    _addBotMessage(response);
+  }
+
+  void sendPredefinedMessage(String message) {
+    _addUserMessage(message);
+    sendMessage();
+  }
+
+  void _addUserMessage(String message) {
+    messages.add("You: $message");
     notifyListeners();
   }
 
-  void startVoiceInput() {
-    // TODO: Implement voice-to-text functionality
+  void _addBotMessage(String message) {
+    messages.add("Q: $message");
+    notifyListeners();
   }
 }
