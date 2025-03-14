@@ -15,12 +15,13 @@ class RegisterScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: FractionalOffset(0.08, -0.9),
+            end: FractionalOffset(0.86, 0.77),
             colors: [
-              Color(0xFF6BB9F0), // Lighter blue (same as login)
-              Color(0xFF4886E2), // Darker blue (same as login)
+              Colors.white,
+              Color.fromRGBO(94, 181, 255, 1),
             ],
+            stops: [0.28, 0.87],
           ),
         ),
         child: SafeArea(
