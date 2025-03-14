@@ -151,14 +151,14 @@ void _login() {
                     text: "Don't have an account? ",
                     style: const TextStyle(
                       color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
-                      fontSize: 13,
+                      fontSize: 16,
                     ),
                     children: [
                       TextSpan(
                         text: "Register",
                         style: const TextStyle(
                           color: Colors.white, // White for the clickable link
-                          fontSize: 13,
+                          fontSize: 16,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
@@ -177,7 +177,7 @@ void _login() {
                     "Terms & Conditions",
                     style: TextStyle(
                       color: Color(0xFFCFE5FE),
-                      fontSize: 13,
+                      fontSize: 16,
                     ),
                   ),
                 ),

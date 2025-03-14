@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../viewmodels/register_vm.dart';
+import 'package:flutter/gestures.dart';
+
 
 class RegisterScreen extends StatelessWidget {
   @override
@@ -102,27 +104,26 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Login Link
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, '/'); // Navigate to Login Screen
-                  },
-                  child:  RichText(
-                    text: TextSpan(
-                      text: "Already have an account? ", // Default size
-                      style: TextStyle(
-                        color: Color(0xFFCFE5FE),
-                        fontSize: 16, // Keep default font size
-                      ),
-                      children: [
-                        TextSpan(
-                          text: "Login",
-                          style: TextStyle(
-                            fontSize: 16, // Smaller font size for "Register"
-                            fontWeight: FontWeight.bold, // Optional: Make it stand out
-                          ),
-                        ),
-                      ],
+                RichText(
+                  text: TextSpan(
+                    text: "Already have an account? ",
+                    style: const TextStyle(
+                      color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
+                      fontSize: 16,
                     ),
+                    children: [
+                      TextSpan(
+                        text: "Login",
+                        style: const TextStyle(
+                          color: Colors.white, // White for the clickable link
+                          fontSize: 16,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, '/');
+                          },
+                      ),
+                    ],
                   ),
                 ),
 
@@ -134,6 +135,7 @@ class RegisterScreen extends StatelessWidget {
                     "Terms & Conditions",
                     style: TextStyle(
                       color: Color(0xFFCFE5FE),
+                      fontSize: 16,
                     ),
                   ),
                 ),
