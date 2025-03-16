@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as path;
+import 'package:html_unescape/html_unescape.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -127,21 +128,33 @@ class AssistantService {
   // ✅ Converts Markdown to readable plain text
   static String _convertMarkdown(String markdownText) {
     String html = md.markdownToHtml(markdownText);
+
     html = html
         .replaceAll(RegExp(r'</p>'), '\n')
         .replaceAll(RegExp(r'<br\s*/?>'), '\n');
 
     String plainText = html.replaceAll(RegExp(r'<[^>]+>'), '');
+    
     plainText = plainText.replaceAll(RegExp(r'ã.*?ã'), '');
+    
+    final unescape = HtmlUnescape();
+    plainText = unescape.convert(plainText);
+
     plainText = plainText
         .replaceAll("&nbsp;", " ")
+        .replaceAll("â", "'")  // <-- Added to catch "â"
         .replaceAll("â€™", "'")
         .replaceAll("â€œ", '"')
         .replaceAll("â€", '"')
+        .replaceAll("â", "—")  // Replace mis-encoded em-dash with a proper em-dash.
         .replaceAll("â€“", "-")
         .replaceAll("â€”", "--")
-        // Replace multiple spaces or tabs with a single space (leaving newlines intact).
+        .replaceAll("Â°F", "°F")
+        .replaceAll("Â°C", "°C");
+
+    plainText = plainText
         .replaceAll(RegExp(r'[ \t]{2,}'), ' ')
+        .replaceAll(RegExp(r'\n{2,}'), '\n\n')
         .trim();
 
     return plainText;
