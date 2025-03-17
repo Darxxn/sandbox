@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../viewmodels/register_vm.dart';
 import 'package:flutter/gestures.dart';
 
-
 class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,10 +18,7 @@ class RegisterScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: FractionalOffset(0.08, -0.9),
             end: FractionalOffset(0.86, 0.77),
-            colors: [
-              Colors.white,
-              Color.fromRGBO(94, 181, 255, 1),
-            ],
+            colors: [Colors.white, Color.fromRGBO(94, 181, 255, 1)],
             stops: [0.28, 0.87],
           ),
         ),
@@ -98,7 +94,12 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     "Register",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontFamily: 'Motiraw',
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -108,25 +109,29 @@ class RegisterScreen extends StatelessWidget {
                   text: TextSpan(
                     text: "Already have an account? ",
                     style: const TextStyle(
-                      color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
-                      fontSize: 16,
+                      color: Color(
+                        0xFFCFE5FE,
+                      ), // Light blue for the non-clickable text
+                      fontSize: 14,
                     ),
                     children: [
                       TextSpan(
                         text: "Login",
                         style: const TextStyle(
                           color: Colors.white, // White for the clickable link
-                          fontSize: 16,
+                          fontSize: 14,
+                          fontFamily: 'Motiraw',
+                          fontWeight: FontWeight.normal,
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pushNamed(context, '/');
-                          },
+                        recognizer:
+                            TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pushNamed(context, '/');
+                              },
                       ),
                     ],
                   ),
                 ),
-
 
                 // Terms & Conditions
                 GestureDetector(
@@ -135,7 +140,9 @@ class RegisterScreen extends StatelessWidget {
                     "Terms & Conditions",
                     style: TextStyle(
                       color: Color(0xFFCFE5FE),
-                      fontSize: 16,
+                      fontSize: 14,
+                      fontFamily: 'Motiraw',
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ),
@@ -158,14 +165,25 @@ class RegisterScreen extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(
+        color: Colors.white,
+        fontFamily: 'Motiraw',
+        fontWeight: FontWeight.normal,
+      ),
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white70),
+        hintStyle: const TextStyle(
+          color: Colors.white70,
+          fontFamily: 'Motiraw',
+          fontWeight: FontWeight.normal,
+        ),
         filled: true,
         fillColor: const Color(0x33FFFFFF),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,

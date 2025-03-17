@@ -15,22 +15,21 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-void _login() {
-  setState(() {
-    _isLoading = true;
-  });
-
-  // Simulate a delay for demonstration
-  Future.delayed(const Duration(seconds: 2), () {
+  void _login() {
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
 
-    // Navigate to Chat Screen after successful login
-    Navigator.pushReplacementNamed(context, '/chat');
-  });
-}
+    // Simulate a delay for demonstration
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
 
+      // Navigate to Chat Screen after successful login
+      Navigator.pushReplacementNamed(context, '/chat');
+    });
+  }
 
   @override
   void dispose() {
@@ -50,10 +49,7 @@ void _login() {
           gradient: LinearGradient(
             begin: FractionalOffset(0.08, -0.9),
             end: FractionalOffset(0.86, 0.77),
-            colors: [
-              Colors.white,
-              Color.fromRGBO(94, 181, 255, 1),
-            ],
+            colors: [Colors.white, Color.fromRGBO(94, 181, 255, 1)],
             stops: [0.28, 0.87],
           ),
         ),
@@ -66,7 +62,7 @@ void _login() {
                 // Logo at the top
                 Image.asset(
                   'assets/images/Q.png',
-                  height: 170, // Adjust as needed
+                  height: 170,
                 ),
                 const SizedBox(height: 80),
 
@@ -75,10 +71,7 @@ void _login() {
                   controller: _orgCodeController,
                   hintText: "Organization Code",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 10.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: SvgPicture.asset(
                       'assets/icons/org_code.svg',
                       width: 16,
@@ -93,10 +86,7 @@ void _login() {
                   controller: _emailController,
                   hintText: "Email",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 10.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: SvgPicture.asset(
                       'assets/icons/email.svg',
                       width: 16,
@@ -112,10 +102,7 @@ void _login() {
                   controller: _passwordController,
                   hintText: "Password",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 10.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: SvgPicture.asset(
                       'assets/icons/password_lock.svg',
                       width: 12,
@@ -130,19 +117,24 @@ void _login() {
                 _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : ElevatedButton(
-                        onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          minimumSize: const Size(double.infinity, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                      onPressed: _login,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontFamily: 'Motiraw',
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
                 const SizedBox(height: 20),
 
                 // Register Link
@@ -150,20 +142,25 @@ void _login() {
                   text: TextSpan(
                     text: "Don't have an account? ",
                     style: const TextStyle(
-                      color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
+                      color: Color(0xFFCFE5FE),
                       fontSize: 14,
+                      fontFamily: 'Motiraw',
+                      fontWeight: FontWeight.normal,
                     ),
                     children: [
                       TextSpan(
                         text: "Register",
                         style: const TextStyle(
-                          color: Colors.white, // White for the clickable link
+                          color: Colors.white,
                           fontSize: 14,
+                          fontFamily: 'Motiraw',
+                          fontWeight: FontWeight.normal,
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pushNamed(context, '/register');
-                          },
+                        recognizer:
+                            TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pushNamed(context, '/register');
+                              },
                       ),
                     ],
                   ),
@@ -171,13 +168,14 @@ void _login() {
 
                 // Terms & Conditions
                 GestureDetector(
-                  onTap: () {
-                  },
+                  onTap: () {},
                   child: const Text(
                     "Terms & Conditions",
                     style: TextStyle(
                       color: Color(0xFFCFE5FE),
                       fontSize: 14,
+                      fontFamily: 'Motiraw',
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ),
@@ -200,14 +198,25 @@ void _login() {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(
+        color: Colors.white,
+        fontFamily: 'Motiraw',
+        fontWeight: FontWeight.normal,
+      ),
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white70),
+        hintStyle: const TextStyle(
+          color: Colors.white70,
+          fontFamily: 'Motiraw',
+          fontWeight: FontWeight.normal,
+        ),
         filled: true,
         fillColor: const Color(0x33FFFFFF),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
