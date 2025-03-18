@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/gestures.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,20 +16,21 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  void _login() {
-    setState(() {
-      _isLoading = true;
-    });
+  void _login() async {
+    setState(() => _isLoading = true);
+    final result = await AuthService.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+    setState(() => _isLoading = false);
 
-    // Simulate a delay for demonstration
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-
-      // Navigate to Chat Screen after successful login
+    if (result.success) {
       Navigator.pushReplacementNamed(context, '/chat');
-    });
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(result.errorMessage)));
+    }
   }
 
   @override
@@ -60,10 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Logo at the top
-                Image.asset(
-                  'assets/images/Q.png',
-                  height: 170,
-                ),
+                Image.asset('assets/images/Q.png', height: 170),
                 const SizedBox(height: 80),
 
                 // Organization Code
@@ -72,10 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: "Organization Code",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: SvgPicture.asset(
-                      'assets/icons/org_code.svg',
-                      width: 16,
-                      height: 13,
+                    child: Transform.translate(
+                      offset: const Offset(0, -2),
+                      child: SvgPicture.asset(
+                        'assets/icons/org_code.svg',
+                        width: 16,
+                        height: 13,
+                      ),
                     ),
                   ),
                 ),
@@ -87,10 +89,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: "Email",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: SvgPicture.asset(
-                      'assets/icons/email.svg',
-                      width: 16,
-                      height: 12,
+                    child: Transform.translate(
+                      offset: const Offset(0, -2),
+                      child: SvgPicture.asset(
+                        'assets/icons/email.svg',
+                        width: 16,
+                        height: 12,
+                      ),
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -103,10 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: "Password",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: SvgPicture.asset(
-                      'assets/icons/password_lock.svg',
-                      width: 12,
-                      height: 16,
+                    child: Transform.translate(
+                      offset: const Offset(0, -2),
+                      child: SvgPicture.asset(
+                        'assets/icons/password_lock.svg',
+                        width: 12,
+                        height: 16,
+                      ),
                     ),
                   ),
                   obscureText: true,
