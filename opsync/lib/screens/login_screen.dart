@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/gestures.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
+  
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -15,22 +16,29 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-void _login() {
-  setState(() {
-    _isLoading = true;
-  });
-
-  // Simulate a delay for demonstration
-  Future.delayed(const Duration(seconds: 2), () {
+  void _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+    
+    final result = await AuthService.login(
+      email: _emailController.text.trim(),
+      password: _passwordController.text,
+      organizationCode: _orgCodeController.text.trim(),
+    );
+    
     setState(() {
       _isLoading = false;
     });
-
-    // Navigate to Chat Screen after successful login
-    Navigator.pushReplacementNamed(context, '/chat');
-  });
-}
-
+    
+    if (result.success) {
+      Navigator.pushReplacementNamed(context, '/chat');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result.errorMessage)),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -38,6 +46,33 @@ void _login() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    Widget? prefixIcon,
+    bool obscureText = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.white70),
+        filled: true,
+        fillColor: const Color(0x33FFFFFF),
+        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
   }
 
   @override
@@ -63,22 +98,17 @@ void _login() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Logo at the top
                 Image.asset(
                   'assets/images/Q.png',
-                  height: 170, // Adjust as needed
+                  height: 170,
                 ),
                 const SizedBox(height: 80),
-
                 // Organization Code
                 _buildTextField(
                   controller: _orgCodeController,
                   hintText: "Organization Code",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 10.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: SvgPicture.asset(
                       'assets/icons/org_code.svg',
                       width: 16,
@@ -87,16 +117,12 @@ void _login() {
                   ),
                 ),
                 const SizedBox(height: 30),
-
                 // Email
                 _buildTextField(
                   controller: _emailController,
                   hintText: "Email",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 10.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: SvgPicture.asset(
                       'assets/icons/email.svg',
                       width: 16,
@@ -106,16 +132,12 @@ void _login() {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 30),
-
                 // Password
                 _buildTextField(
                   controller: _passwordController,
                   hintText: "Password",
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 10.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                     child: SvgPicture.asset(
                       'assets/icons/password_lock.svg',
                       width: 12,
@@ -125,8 +147,6 @@ void _login() {
                   obscureText: true,
                 ),
                 const SizedBox(height: 90),
-
-                // Login Button
                 _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : ElevatedButton(
@@ -144,20 +164,18 @@ void _login() {
                         ),
                       ),
                 const SizedBox(height: 20),
-
-                // Register Link
                 RichText(
                   text: TextSpan(
                     text: "Don't have an account? ",
                     style: const TextStyle(
-                      color: Color(0xFFCFE5FE), // Light blue for the non-clickable text
+                      color: Color(0xFFCFE5FE),
                       fontSize: 14,
                     ),
                     children: [
                       TextSpan(
                         text: "Register",
                         style: const TextStyle(
-                          color: Colors.white, // White for the clickable link
+                          color: Colors.white,
                           fontSize: 14,
                         ),
                         recognizer: TapGestureRecognizer()
@@ -168,11 +186,8 @@ void _login() {
                     ],
                   ),
                 ),
-
-                // Terms & Conditions
                 GestureDetector(
-                  onTap: () {
-                  },
+                  onTap: () {},
                   child: const Text(
                     "Terms & Conditions",
                     style: TextStyle(
@@ -184,33 +199,6 @@ void _login() {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hintText,
-    Widget? prefixIcon,
-    bool obscureText = false,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white70),
-        filled: true,
-        fillColor: const Color(0x33FFFFFF),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
         ),
       ),
     );

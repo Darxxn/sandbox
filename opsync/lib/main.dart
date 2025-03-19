@@ -26,6 +26,17 @@ void main() async {
   );
   print("✅ Supabase initialized!");
 
+  // Optional: Test the connection by querying a known table (e.g., 'organizations')
+  try {
+    final List<dynamic> testQuery = await Supabase.instance.client
+        .from('organizations')
+        .select()
+        .limit(1);
+    print("✅ Test query succeeded. Organizations table returned: $testQuery");
+  } catch (error) {
+    print("❌ Test query failed: $error");
+  }
+
   runApp(MyApp());
 }
 

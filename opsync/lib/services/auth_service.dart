@@ -8,35 +8,34 @@ class AuthService {
     required String organizationCode,
   }) async {
     try {
-      // Check if the provided organization code exists in the organizations table
+      // Validate that the provided organization code exists in the organizations table.
       final orgResponse = await Supabase.instance.client
           .from('organizations')
           .select()
-          .eq('organization_code', organizationCode)
-          .execute();
+          .eq('organization_code', organizationCode);
 
-      if (orgResponse.error != null ||
-          (orgResponse.data as List).isEmpty) {
+      // Since the query returns a List, check if it's empty.
+      if ((orgResponse as List).isEmpty) {
         return AuthResult(success: false, errorMessage: 'Invalid organization code.');
       }
 
-      // Proceed with sign in
+      // Proceed with sign in.
       final response = await Supabase.instance.client.auth.signInWithPassword(
         email: email,
         password: password,
       );
 
       if (response.session != null) {
-        // After sign in, verify that the user's metadata organization code matches
+        // After sign in, safely retrieve and compare the user's metadata organization code.
         final user = Supabase.instance.client.auth.currentUser;
-        if (user != null && user.userMetadata != null) {
-          if (user.userMetadata['organization_code'] == organizationCode) {
-            return AuthResult(success: true);
-          } else {
-            return AuthResult(success: false, errorMessage: 'Organization code does not match your registered code.');
-          }
+        final registeredOrgCode = user?.userMetadata?['organization_code'] as String?;
+        if (registeredOrgCode != null && registeredOrgCode == organizationCode) {
+          return AuthResult(success: true);
         } else {
-          return AuthResult(success: false, errorMessage: 'User data not available.');
+          return AuthResult(
+            success: false,
+            errorMessage: 'Organization code does not match your registered code.',
+          );
         }
       } else {
         return AuthResult(success: false, errorMessage: 'Login failed. No session returned.');
@@ -48,26 +47,30 @@ class AuthService {
     }
   }
 
-  // Registration function using Supabase authentication with organization code validation
+  // Registration function using Supabase authentication with organization code validation.
   static Future<AuthResult> register({
     required String email,
     required String password,
     required String organizationCode,
   }) async {
     try {
-      // Validate organization code by querying the organizations table
+      // Validate that the provided organization code exists.
+      print("DEBUG: Querying organizations table for code: $organizationCode");
       final orgResponse = await Supabase.instance.client
           .from('organizations')
           .select()
-          .eq('organization_code', organizationCode)
-          .execute();
+          .eq('organization_code', organizationCode);
 
-      if (orgResponse.error != null ||
-          (orgResponse.data as List).isEmpty) {
+      print("DEBUG: orgResponse raw data: $orgResponse");
+      print("DEBUG: Querying organizations table for code: ${organizationCode.trim()}");
+
+
+
+      if ((orgResponse as List).isEmpty) {
         return AuthResult(success: false, errorMessage: 'Invalid organization code.');
       }
 
-      // Proceed with sign up; store organization code in user metadata
+      // Proceed with sign up and store the organization code in user metadata.
       final response = await Supabase.instance.client.auth.signUp(
         email: email,
         password: password,
