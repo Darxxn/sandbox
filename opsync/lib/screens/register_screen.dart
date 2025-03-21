@@ -212,41 +212,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
 }
 
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hintText,
-    Widget? prefixIcon,
-    bool obscureText = false,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      style: const TextStyle(
-        color: Colors.white,
-        fontFamily: 'Motiraw',
-        fontWeight: FontWeight.normal,
-      ),
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          color: Colors.white70,
-          fontFamily: 'Motiraw',
-          fontWeight: FontWeight.normal,
-        ),
-        filled: true,
-        fillColor: const Color(0x33FFFFFF),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 15,
-          horizontal: 10,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
-  }
-}
+  // Widget _buildTextField({
+  //   required TextEditingController controller,
+  //   required String hintText,
+  //   Widget? prefixIcon,
+  //   bool obscureText = false,
+  //   TextInputType keyboardType = TextInputType.text,
+  // }) {
+  //   return TextField(
+  //     controller: controller,
+  //     obscureText: obscureText,
+  //     keyboardType: keyboardType,
+  //     style: const TextStyle(
+  //       color: Colors.white,
+  //       fontFamily: 'Motiraw',
+  //       fontWeight: FontWeight.normal,
+  //     ),
+  //     decoration: InputDecoration(
+  //       prefixIcon: prefixIcon,
+  //       hintText: hintText,
+  //       hintStyle: const TextStyle(
+  //         color: Colors.white70,
+  //         fontFamily: 'Motiraw',
+  //         fontWeight: FontWeight.normal,
+  //       ),
+  //       filled: true,
+  //       fillColor: const Color(0x33FFFFFF),
+  //       contentPadding: const EdgeInsets.symmetric(
+  //         vertical: 15,
+  //         horizontal: 10,
+  //       ),
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(30),
+  //         borderSide: BorderSide.none,
+  //       ),
+  //     ),
+  //   );
+  // }
+
