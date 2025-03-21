@@ -8,23 +8,34 @@ import 'viewmodels/register_vm.dart';
 import 'viewmodels/chat_vm.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Supabase
-  await Supabase.initialize(
-    url: 'https://tmeriosndjiwpbdjljcp.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtZXJpb3NuZGppd3BiZGpsamNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE3NDQ0ODUsImV4cCI6MjA1NzMyMDQ4NX0.1jOlCxEna20DcmLzibrgp9FuGSTp8snKu5afujJaW1A',
-  );
-  
+  // Load environment variables
   try {
-    await dotenv.load(fileName: ".env"); // Ensure it looks in the root directory
+    await dotenv.load(fileName: ".env"); // Ensure the .env file is in your project root
     print("✅ .env file loaded successfully!");
   } catch (e) {
     print("❌ Error loading .env file: $e");
   }
 
+  // Initialize Supabase with values from the .env file
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!, 
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+  );
+  print("✅ Supabase initialized!");
+
+  // Optional: Test the connection by querying a known table (e.g., 'organizations')
+  try {
+    final List<dynamic> testQuery = await Supabase.instance.client
+        .from('organizations')
+        .select()
+        .limit(1);
+    print("✅ Test query succeeded. Organizations table returned: $testQuery");
+  } catch (error) {
+    print("❌ Test query failed: $error");
+  }
 
   runApp(MyApp());
 }
@@ -41,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'Figma Mockup Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
-        initialRoute: '/',  // Set Login Screen as the entry point
+        initialRoute: '/', // Set Login Screen as the entry point
         routes: {
           '/': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),

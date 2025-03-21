@@ -6,7 +6,7 @@ import '../viewmodels/login_vm.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
+  
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -18,19 +18,26 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
   void _login() async {
-    setState(() => _isLoading = true);
+    setState(() {
+      _isLoading = true;
+    });
+    
     final result = await AuthService.login(
-      email: _emailController.text,
+      email: _emailController.text.trim(),
       password: _passwordController.text,
+      organizationCode: _orgCodeController.text.trim(),
     );
-    setState(() => _isLoading = false);
-
+    
+    setState(() {
+      _isLoading = false;
+    });
+    
     if (result.success) {
       Navigator.pushReplacementNamed(context, '/chat');
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(result.errorMessage)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result.errorMessage)),
+      );
     }
   }
 
@@ -40,6 +47,33 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    Widget? prefixIcon,
+    bool obscureText = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.white70),
+        filled: true,
+        fillColor: const Color(0x33FFFFFF),
+        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
   }
 
   @override
@@ -62,67 +96,55 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Logo at the top
-                Image.asset('assets/images/Q.png', height: 170),
+                Image.asset(
+                  'assets/images/Q.png',
+                  height: 170,
+                ),
                 const SizedBox(height: 80),
-
                 // Organization Code
                 _buildTextField(
                   controller: _orgCodeController,
                   hintText: "Organization Code",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: Transform.translate(
-                      offset: const Offset(0, -2),
-                      child: SvgPicture.asset(
-                        'assets/icons/org_code.svg',
-                        width: 16,
-                        height: 13,
-                      ),
+                    child: SvgPicture.asset(
+                      'assets/icons/org_code.svg',
+                      width: 16,
+                      height: 13,
                     ),
                   ),
                 ),
                 const SizedBox(height: 30),
-
                 // Email
                 _buildTextField(
                   controller: _emailController,
                   hintText: "Email",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: Transform.translate(
-                      offset: const Offset(0, -2),
-                      child: SvgPicture.asset(
-                        'assets/icons/email.svg',
-                        width: 16,
-                        height: 12,
-                      ),
+                    child: SvgPicture.asset(
+                      'assets/icons/email.svg',
+                      width: 16,
+                      height: 12,
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 30),
-
                 // Password
                 _buildTextField(
                   controller: _passwordController,
                   hintText: "Password",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: Transform.translate(
-                      offset: const Offset(0, -2),
-                      child: SvgPicture.asset(
-                        'assets/icons/password_lock.svg',
-                        width: 12,
-                        height: 16,
-                      ),
+                    child: SvgPicture.asset(
+                      'assets/icons/password_lock.svg',
+                      width: 12,
+                      height: 16,
                     ),
                   ),
                   obscureText: true,
                 ),
                 const SizedBox(height: 90),
-
-                // Login Button
                 _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : ElevatedButton(
@@ -145,8 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                 const SizedBox(height: 20),
-
-                // Register Link
                 RichText(
                   text: TextSpan(
                     text: "Don't have an account? ",
@@ -174,8 +194,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-
-                // Terms & Conditions
                 GestureDetector(
                   onTap: () {},
                   child: const Text(
@@ -195,42 +213,43 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hintText,
-    Widget? prefixIcon,
-    bool obscureText = false,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      style: const TextStyle(
-        color: Colors.white,
-        fontFamily: 'Motiraw',
-        fontWeight: FontWeight.normal,
-      ),
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          color: Colors.white70,
-          fontFamily: 'Motiraw',
-          fontWeight: FontWeight.normal,
-        ),
-        filled: true,
-        fillColor: const Color(0x33FFFFFF),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 15,
-          horizontal: 10,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
   }
-}
+
+//   Widget _buildTextField({
+//     required TextEditingController controller,
+//     required String hintText,
+//     Widget? prefixIcon,
+//     bool obscureText = false,
+//     TextInputType keyboardType = TextInputType.text,
+//   }) {
+//     return TextField(
+//       controller: controller,
+//       obscureText: obscureText,
+//       keyboardType: keyboardType,
+//       style: const TextStyle(
+//         color: Colors.white,
+//         fontFamily: 'Motiraw',
+//         fontWeight: FontWeight.normal,
+//       ),
+//       decoration: InputDecoration(
+//         prefixIcon: prefixIcon,
+//         hintText: hintText,
+//         hintStyle: const TextStyle(
+//           color: Colors.white70,
+//           fontFamily: 'Motiraw',
+//           fontWeight: FontWeight.normal,
+//         ),
+//         filled: true,
+//         fillColor: const Color(0x33FFFFFF),
+//         contentPadding: const EdgeInsets.symmetric(
+//           vertical: 15,
+//           horizontal: 10,
+//         ),
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(30),
+//           borderSide: BorderSide.none,
+//         ),
+//       ),
+//     );
+//   }
+// }
