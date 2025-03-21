@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/gestures.dart';
 import '../services/auth_service.dart';
-//import '../viewmodels/login_vm.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-  
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -21,23 +20,23 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = true;
     });
-    
+
     final result = await AuthService.login(
       email: _emailController.text.trim(),
       password: _passwordController.text,
       organizationCode: _orgCodeController.text.trim(),
     );
-    
+
     setState(() {
       _isLoading = false;
     });
-    
+
     if (result.success) {
       Navigator.pushReplacementNamed(context, '/chat');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result.errorMessage)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(result.errorMessage)));
     }
   }
 
@@ -67,7 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
         hintStyle: const TextStyle(color: Colors.white70),
         filled: true,
         fillColor: const Color(0x33FFFFFF),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
@@ -96,10 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/images/Q.png',
-                  height: 170,
-                ),
+                Image.asset('assets/images/Q.png', height: 170),
                 const SizedBox(height: 80),
                 // Organization Code
                 _buildTextField(
@@ -213,43 +212,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  }
-
-//   Widget _buildTextField({
-//     required TextEditingController controller,
-//     required String hintText,
-//     Widget? prefixIcon,
-//     bool obscureText = false,
-//     TextInputType keyboardType = TextInputType.text,
-//   }) {
-//     return TextField(
-//       controller: controller,
-//       obscureText: obscureText,
-//       keyboardType: keyboardType,
-//       style: const TextStyle(
-//         color: Colors.white,
-//         fontFamily: 'Motiraw',
-//         fontWeight: FontWeight.normal,
-//       ),
-//       decoration: InputDecoration(
-//         prefixIcon: prefixIcon,
-//         hintText: hintText,
-//         hintStyle: const TextStyle(
-//           color: Colors.white70,
-//           fontFamily: 'Motiraw',
-//           fontWeight: FontWeight.normal,
-//         ),
-//         filled: true,
-//         fillColor: const Color(0x33FFFFFF),
-//         contentPadding: const EdgeInsets.symmetric(
-//           vertical: 15,
-//           horizontal: 10,
-//         ),
-//         border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30),
-//           borderSide: BorderSide.none,
-//         ),
-//       ),
-//     );
-//   }
-// }
+}
