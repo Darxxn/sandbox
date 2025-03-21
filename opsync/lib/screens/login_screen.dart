@@ -181,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: "Register",
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontFamily: 'Motiraw',
                           fontWeight: FontWeight.normal,
                         ),
